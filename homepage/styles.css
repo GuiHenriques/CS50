@@ -1,0 +1,56 @@
+body {
+    background-color:ghostWhite;
+    color: #212529;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+}
+
+button {
+    font-size: 10rem;
+}
+.header {
+    font-weight: bold;
+    color:ghostWhite;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem 0.75rem;
+    text-align: center;
+    font-size: 5rem
+}
+
+img.small {
+    width: 45px;
+}
+
+td {
+    text-align: center;
+    padding: 70px 0;
+}
+
+.foodtype {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: chocolate;
+}
+
+.text {
+    font-size: 1.3rem;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.section {
+    padding: 0.5rem 2rem 1rem 2rem;
+}
+
+.section:hover {
+    background-color: #e5e5e5;
+    transition: color 2s ease-in-out, background-color 0.15s ease-in-out;
+}
