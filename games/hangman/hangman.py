@@ -4,7 +4,6 @@ from random import randint
 from time import sleep
 
 # Board Sequence
-
 board = ["""
  -=-=-=-=-=- Hangman -=-=-=-=-=-
 
@@ -68,15 +67,15 @@ class Hangman():
         self.word = word
 
     # Guess letter
-    def guess(self, word, letter):
-        if letter in word:
+    def guess(self, letter):
+        if letter in self.word:
             return True
         else:
             return False
             
     # Check win
-    def hang_win(self, word, right):
-        for i in word:
+    def hang_win(self, right):
+        for i in self.word:
             if i in right:
                 pass
             else:
@@ -84,20 +83,16 @@ class Hangman():
         return True
 
     # Hide word
-    def hide_word(self, word, right):
+    def hide_word(self, right):
         print('Palavra: ', end='')
-        current = ""
-        for i in word:
+        for i in self.word:
             if i in right:
                 print(i, end="")
-                current += i
             else:
                 print("_", end="")
-                current += "_"
                 
         print()
         # Check win
-        return current
 
     # Print Game Status
     def status(self, wrong):
@@ -108,7 +103,7 @@ class Hangman():
         print()
 
 def rand_word():
-    with open("dsa/words.txt", "r") as w:
+    with open("words.txt", "r") as w:
         bank = w.readlines()
     return bank[randint(0, len(bank) - 1)].strip()
 
@@ -133,15 +128,15 @@ def main():
         # Ask letter
         while True:
             # Word status
-            current = game.hide_word(game.word, right)
+            game.hide_word(right)
             game.status(wrong)
             print()
             letter = input("Type a word: ").lower()
-            if game.guess(game.word, letter):
+            if game.guess(letter):
                 right.append(letter)
                 
                 # Check win
-                if game.hang_win(game.word, right):
+                if game.hang_win(right):
                     print("\033[32mWell Done. You Won\033[m")
                     win = True
                     break
@@ -149,13 +144,10 @@ def main():
                 wrong.append(letter)
                 break
     
-        
-
-
     # If not hang_win an loop ended, you lost
     if not win:
         print("\033[31mGame Over. You Lost\033[m")
-        print("The word was ", game.word)
+        print("The word was", game.word)
 
 # Execute Program
 if __name__ == "__main__":
