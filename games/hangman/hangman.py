@@ -65,90 +65,74 @@ class Hangman():
     # Construtor
     def __init__(self, word):
         self.word = word
+        # Words list
+        self.right = []
+        self.wrong = []
+    
+    def board(self):
+        print(board[len(self.wrong)])
 
     # Guess letter
     def guess(self, letter):
         if letter in self.word:
+            self.right.append(letter)
             return True
         else:
+            self.wrong.append(letter)
             return False
             
     # Check win
-    def hang_win(self, right):
-        for i in self.word:
-            if i in right:
-                pass
-            else:
+    def hang_win(self):
+        for letter in self.word:
+            if letter not in self.right:
                 return False
         return True
+    
+    def hang_over(self):
+        if len(self.wrong) == 6:
+            return True
 
-    # Hide word
-    def hide_word(self, right):
+    def hide_word(self):
         print('Palavra: ', end='')
-        for i in self.word:
-            if i in right:
-                print(i, end="")
+        for letter in self.word:
+            if letter in self.right:
+                print(letter, end="")
             else:
                 print("_", end="")
-                
         print()
-        # Check win
 
-    # Print Game Status
-    def status(self, wrong):
-        # Wordsrong words
+    def status(self):
         print('Wrong words: ', end="")
-        for i in wrong:
-            print(i, end=" ")
+        for letter in self.wrong:
+            print(letter, end=" ")
         print()
 
 def rand_word():
-    with open("words.txt", "r") as w:
+    with open(".\words.txt", "r") as w:
         bank = w.readlines()
     return bank[randint(0, len(bank) - 1)].strip()
+    
 
 # Execução
 def main():
-    # Words list
-    right = []
-    wrong = []
-    
     # Objeto
     game = Hangman(rand_word())
-
-    win = False
-    for k, i in enumerate(board):
-        if win:
-            break
-        # Board Game
-        print(i)
-        if k == 6:
-            break 
-                
-        # Ask letter
-        while True:
-            # Word status
-            game.hide_word(right)
-            game.status(wrong)
-            print()
-            letter = input("Type a word: ").lower()
-            if game.guess(letter):
-                right.append(letter)
-                
-                # Check win
-                if game.hang_win(right):
-                    print("\033[32mWell Done. You Won\033[m")
-                    win = True
-                    break
-            else:
-                wrong.append(letter)
-                break
     
-    # If not hang_win an loop ended, you lost
-    if not win:
-        print("\033[31mGame Over. You Lost\033[m")
-        print("The word was", game.word)
-
+    # Word status
+    while True:
+        game.board()
+        game.hide_word()
+        game.status()
+        letter = input("Type a word: ").lower()
+        game.guess(letter)
+        if game.hang_win():
+            game.hide_word()
+            print("\033[32mWell Done\033[m")
+            break
+        if game.hang_over():
+            print("\033[31mGame Over.\033[m. The word was", game.word)
+            break
+        
 # Execute Program
 if __name__ == "__main__":
     main()
