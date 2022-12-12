@@ -19,6 +19,8 @@ class Student:
                 return "🦦"
             case "Jack Russel":
                 return "🐶"
+            case "Octopus":
+                return "🐙"
             case _:
                 return "🧙‍♂️"
             
