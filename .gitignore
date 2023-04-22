@@ -1,0 +1,4 @@
+**/projectx
+*.pyc
+projectx/flask_session
+projectx/project.db

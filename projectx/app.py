@@ -29,7 +29,7 @@ def after_request(response):
 def index():
     """Show main page"""
     teams = db.execute("SELECT team, color, rating FROM teams")
-    cteams = db.execute("SELECT team, color, rating FROM cteams WHERE user_id = ?", 1)
+    cteams = db.execute("SELECT team, color, rating FROM cteams WHERE user_id = ?", 3)
 
     # db.execute("UPDATE teamsint SET color = '#' where team like '%'")
 
